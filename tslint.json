@@ -1,0 +1,21 @@
+{
+    "defaultSeverity": "error",
+    "extends": [
+      "tslint:recommended"
+    ],
+    "linterOptions": {
+      "exclude": ["src/@types/**/*.d.ts", "./docs/**", "./src/api-docs.json"]
+    },
+    "jsRules": {
+        "no-console": false 
+    },
+    "rules": {
+      "trailing-comma": [false],
+      "no-console": [
+          false,
+          "log"
+      ]
+    },
+    "rulesDirectory": []
+  }
+  
