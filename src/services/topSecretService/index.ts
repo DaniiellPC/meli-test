@@ -1,3 +1,3 @@
 export interface ITopSecretService {
-    getSecret(payload: any): Promise<any>
+    getLocation(payload: any): Promise<object>
   }

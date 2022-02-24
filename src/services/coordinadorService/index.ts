@@ -1,3 +1,3 @@
 export interface ICoordinadorService {
-    getSecretPosition(payload: any): Promise<any>
+    getSecret(payload: any): Promise<any>
   }

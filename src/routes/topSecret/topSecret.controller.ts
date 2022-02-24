@@ -35,27 +35,32 @@ export class TopSecretController implements interfaces.Controller {
       console.error(
         `POST /v1/monedaExtranjera/liquidarTransferenciaEnviada - Formato de request invalido: ${validationResult.error}`
       )
-      res.status(422).json(responseHttp([], [`${validationResult.error}`]))
+      res.status(422).json(`${validationResult.error}`)
       nextFunc()
       return
     }
     // tslint:disable-next-line:no-shadowed-variable
     let response
     try {
-      response = await this.coordinadorService.getSecretPosition(data)
+      response = await this.coordinadorService.getSecret(data)
+      if(!response) {
+        res.status(404).json('No se puede determinar la posicion o el mensaje')
+        nextFunc()
+        return
+      }
     } catch (error: any) {
       console.error(
-        `POST /v1/monedaExtranjera/liquidarTransferenciaEnviada- Enviar Operacion Error: ${error.message} / ${error.internalError.message}`
+        `${error.message} / ${error.internalError.message}`
       )
 
       res
         .status(error.statusCode)
-        .json(responseHttp(data, [error.internalError.message]))
+        .json(error.internalError.message)
       nextFunc()
       return
     }
     // Si no hubo errores, responder la solicitud con 200
-    res.status(200).json(responseHttp(response, []))
+    res.status(200).json(response)
     nextFunc()
     return
   }
